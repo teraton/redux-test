@@ -1,0 +1,26 @@
+{
+  "name": "redux-test",
+  "version": "1.0.0",
+  "description": "redux test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Henri Terho",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "15.0.21",
+    "@types/react-dom": "0.14.23",
+    "@types/react-redux": "4.4.38",
+    "@types/redux": "3.6.0",
+    "react": "^15.5.4",
+    "react-addons-test-utils": "15.4.1",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "redux-persist": "^4.6.0",
+    "redux-persist-crosstab": "^3.5.2",
+    "ts-loader": "^2.0.3",
+    "typings": "2.1.0"
+  }
+}
