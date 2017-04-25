@@ -7,17 +7,21 @@ import * as Actions from './actions'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import {Counter} from './components/counter'
 import { Provider } from 'react-redux'
+import { createLogger } from 'redux-logger'
 
 import {
     reducers,
     Store
 } from './reducers'
 console.log("test1");
+
+const logger = createLogger({});
+
 let store: Redux.Store<any> = Redux.createStore (
   reducers,
   undefined,
   Redux.compose(
-    Redux.applyMiddleware(),
+    Redux.applyMiddleware(logger),
     autoRehydrate()
   )
   );

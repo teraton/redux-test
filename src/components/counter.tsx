@@ -35,7 +35,7 @@ interface OwnState {};
 //-------------------------------------------
 
 //counter component definition
-class CounterComponent extends React.Component<any,any>{
+class CounterComponent extends React.Component<OwnProps & ConnectedState & ConnectedDispatch,OwnState>{
      _onClickIncrement = () => {
         this.props.increment(1);
     }
