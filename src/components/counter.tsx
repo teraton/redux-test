@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import {
   incrementCounter,
+  resetCounter
 } from '../actions'
 
 import { Store } from '../reducers'
@@ -15,6 +16,9 @@ const mapStateToProps = (state: Store.All, OwnProps: OwnProps): ConnectedState =
 const mapDispatchToProps = (dispatch: redux.Dispatch<Store.All>): ConnectedDispatch => ({
     increment: (n: number) => {
         dispatch(incrementCounter(1));
+    },
+    reset: () => {
+        dispatch(resetCounter());
     }
 })
 
@@ -28,6 +32,7 @@ interface ConnectedState {
 
 interface ConnectedDispatch {
     increment: (n: number) => void;
+    reset: () => void;
 }
 
 interface OwnState {};
@@ -39,12 +44,16 @@ class CounterComponent extends React.Component<OwnProps & ConnectedState & Conne
      _onClickIncrement = () => {
         this.props.increment(1);
     }
+    _onClickReset = () => {
+        this.props.reset();
+    }
     render () {
     const { counter, label } = this.props
     return <div>
       <label>{label}</label>
       <pre>counter = {counter.value}</pre>
-      <button ref='increment' onClick={this._onClickIncrement}>click me!</button>
+      <button ref='increment' onClick={this._onClickIncrement}>increment</button>
+      <button ref='increment' onClick={this._onClickReset}>reset</button>
     </div>
   }
 }
