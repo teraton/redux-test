@@ -4,7 +4,7 @@
   "description": "redux test",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "webpack": "webpack -w"
   },
   "author": "Henri Terho",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "@types/react-dom": "0.14.23",
     "@types/react-redux": "4.4.38",
     "@types/redux": "3.6.0",
+    "jest": "^19.0.2",
     "react": "^15.5.4",
     "react-addons-test-utils": "15.4.1",
     "react-dom": "^15.5.4",

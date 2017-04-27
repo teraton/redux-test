@@ -61,8 +61,13 @@ console.log("test");
 window.addEventListener('DOMContentLoaded', () => {
   const rootEl = document.getElementById('redux-app-root')
   if (rootEl) ReactDOM.render(
-    <Provider store={store}>
-      <Counter label='count:' />
-    </Provider>
+    <div>
+      <Provider store={store}>
+        <Counter label='count:' />
+      </Provider>
+      <Provider store={store}>
+        <Counter label='count:' />
+      </Provider>
+    </div>
   , rootEl)
 })

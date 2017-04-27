@@ -15,7 +15,7 @@ const mapStateToProps = (state: Store.All, OwnProps: OwnProps): ConnectedState =
 
 const mapDispatchToProps = (dispatch: redux.Dispatch<Store.All>): ConnectedDispatch => ({
     increment: (n: number) => {
-        dispatch(incrementCounter(1));
+        dispatch(incrementCounter(n));
     },
     reset: () => {
         dispatch(resetCounter());
@@ -41,8 +41,8 @@ interface OwnState {};
 
 //counter component definition
 class CounterComponent extends React.Component<OwnProps & ConnectedState & ConnectedDispatch,OwnState>{
-     _onClickIncrement = () => {
-        this.props.increment(1);
+     _onClickIncrement = (delta) => {
+        this.props.increment(delta);
     }
     _onClickReset = () => {
         this.props.reset();
@@ -52,8 +52,8 @@ class CounterComponent extends React.Component<OwnProps & ConnectedState & Conne
     return <div>
       <label>{label}</label>
       <pre>counter = {counter.value}</pre>
-      <button ref='increment' onClick={this._onClickIncrement}>increment</button>
-      <button ref='increment' onClick={this._onClickReset}>reset</button>
+      <button ref='increment' onClick={() => this._onClickIncrement(5)}>increment</button>
+      <button ref='reset' onClick={this._onClickReset}>reset</button>
     </div>
   }
 }
