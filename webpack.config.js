@@ -1,3 +1,5 @@
+/// <binding ProjectOpened='Watch - Development' /> 
+
 module.exports = {
   entry: './src/index.tsx',
   output: {

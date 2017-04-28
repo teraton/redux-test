@@ -1,3 +1,10 @@
+
+//ie support for promises
+//import { Promise } from 'es6-pro
+import "es6-promise/auto";
+
+import * as localForage from "localforage";
+
 import * as ReactDOM from 'react-dom'
 import * as React from 'react'
 
@@ -13,6 +20,7 @@ import {
     reducers,
     Store
 } from './reducers'
+
 console.log("test1");
 
 const logger = createLogger({});
@@ -26,19 +34,20 @@ let store: Redux.Store<any> = Redux.createStore (
   )
   );
 
-//crosstab persistence support
-const persistor = persistStore(store, {})
-
-var KEY_PREFIX = 'reduxPersist:';
+const KEY_PREFIX = 'reduxPersist:';
+const REHYDRATE = 'persist/REHYDRATE';
 
 function crosstabSync(persistor, config){
   var config = config || {}
   var blacklist = config.blacklist || false
   var whitelist = config.whitelist || false
-
+  console.log("crosstabSync binding")
   window.addEventListener('storage', handleStorageEvent, false)
 
+  console.log("crosstabSync binding done")
+  
   function handleStorageEvent(e){
+    console.log("bound to event")
     if(e.key.indexOf(KEY_PREFIX) === 0){
       var keyspace = e.key.substr(KEY_PREFIX.length)
       if(whitelist && whitelist.indexOf(keyspace) === -1){ return }
@@ -51,11 +60,15 @@ function crosstabSync(persistor, config){
   }
 }
 
-crosstabSync(persistor, {});
+const persistor = persistStore(store, {})
+crosstabSync(persistor, null)
+
+window.localStorage.setItem("foo","bar")
 
 store.subscribe(() => {
   console.log(store.getState())
 })
+
 console.log("test");
 // Commented out ("let HTML app be HTML app!")
 window.addEventListener('DOMContentLoaded', () => {

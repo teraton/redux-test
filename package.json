@@ -9,10 +9,12 @@
   "author": "Henri Terho",
   "license": "ISC",
   "devDependencies": {
+    "@types/es6-promise": "^0.0.32",
     "@types/react": "15.0.21",
     "@types/react-dom": "0.14.23",
     "@types/react-redux": "4.4.38",
     "@types/redux": "3.6.0",
+    "connect": "^3.6.1",
     "jest": "^19.0.2",
     "react": "^15.5.4",
     "react-addons-test-utils": "15.4.1",
@@ -22,7 +24,11 @@
     "redux-logger": "^3.0.1",
     "redux-persist": "^4.6.0",
     "redux-persist-crosstab": "^3.5.2",
+    "serve-static": "^1.12.2",
     "ts-loader": "^2.0.3",
     "typings": "2.1.0"
+  },
+  "dependencies": {
+    "@types/es6-promise": "0.0.32"
   }
 }

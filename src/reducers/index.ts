@@ -27,6 +27,8 @@ function counter (state: Store.Counter = initialState, action: Action): Store.Co
     return state;
 }
 
+
+
 export const reducers = combineReducers<Store.All>({
   counter,
 })
