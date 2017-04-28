@@ -3,8 +3,6 @@
 //import { Promise } from 'es6-pro
 import "es6-promise/auto";
 
-import * as localForage from "localforage";
-
 import * as ReactDOM from 'react-dom'
 import * as React from 'react'
 
