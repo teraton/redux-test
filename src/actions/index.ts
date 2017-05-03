@@ -1,22 +1,21 @@
-//type helpers
+import * as redux from 'redux'
 
-//TODO: figure out an easier and more readable way to achieve about the same effect 
-type Q<T> = {request: T};
-type S<T> = {response: T};
-type E = {error: Error};
+import { api } from '../api_mock/api'
+import { Store } from '../reducers/index'
 
-//more aliases...
+type Q<T> = { request: T }
+type S<T> = { response: T }
+type E = { error: Error }
+
 type QEmpty = Q<null>
-type QValue = Q<{value: number}>
+type QValue = Q<{ value: number }>
 
+export type Action =
+// UI actions
+   { type: 'INCREMENT_COUNTER', delta: number }
+|  { type: 'RESET_COUNTER' }
 
-export type Action = {
-  type: 'INCREMENT_COUNTER',
-  delta: number,
-} | {
-  type: 'RESET_COUNTER',
-}
-//api actions
+// API Requests
 | ({ type: 'SAVE_COUNT_REQUEST' } & QValue)
 | ({ type: 'SAVE_COUNT_SUCCESS' } & QValue & S<{}>)
 | ({ type: 'SAVE_COUNT_ERROR'   } & QValue & E)
@@ -24,7 +23,6 @@ export type Action = {
 | ({ type: 'LOAD_COUNT_REQUEST' } & QEmpty)
 | ({ type: 'LOAD_COUNT_SUCCESS' } & QEmpty & S<{ value: number }>)
 | ({ type: 'LOAD_COUNT_ERROR'   } & QEmpty & E)
-     
 
 export const incrementCounter = (delta: number): Action => ({
   type: 'INCREMENT_COUNTER',
@@ -41,7 +39,7 @@ export type ApiActionGroup<_Q, _S> = {
   error: (e: Error, q?: _Q) => Action & Q<_Q> & E
 }
 
-export const saveCount: ApiActionGroup<{ value: number }, {}> = {
+const _saveCount: ApiActionGroup<{ value: number }, {}> = {
   request: (request) =>
     ({ type: 'SAVE_COUNT_REQUEST', request }),
   success: (response, request) =>
@@ -50,7 +48,7 @@ export const saveCount: ApiActionGroup<{ value: number }, {}> = {
     ({ type: 'SAVE_COUNT_ERROR',   request, error }),
 }
 
-export const loadCount: ApiActionGroup<null, { value: number }> = {
+const _loadCount: ApiActionGroup<null, { value: number }> = {
   request: (request) =>
     ({ type: 'LOAD_COUNT_REQUEST', request: null }),
   success: (response, request) =>
@@ -59,3 +57,16 @@ export const loadCount: ApiActionGroup<null, { value: number }> = {
     ({ type: 'LOAD_COUNT_ERROR',   request: null, error }),
 }
 
+type apiFunc<Q, S> = (q: Q) => Promise<S>
+
+function apiActionGroupFactory<Q, S>(x: ApiActionGroup<Q, S>, go: apiFunc<Q, S>) {
+  return (request: Q) => (dispatch: redux.Dispatch<Store.All>) => {
+    dispatch(x.request(request))
+    go(request)
+      .then((response) => dispatch(x.success(response, request)))
+      .catch((e: Error) => dispatch(x.error(e, request)))
+  }
+}
+
+export const saveCount = apiActionGroupFactory(_saveCount, api.save)
+export const loadCount = () => apiActionGroupFactory(_loadCount, api.load)(null)

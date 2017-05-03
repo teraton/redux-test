@@ -45,9 +45,9 @@ const mapDispatchToProps = (dispatch: redux.Dispatch<Store.All>): ConnectedDispa
   increment: (n: number) =>
     dispatch(incrementCounter(n)),
   load: () =>
-    dispatch(loadCount.request()),
+    dispatch(loadCount()),
   save: (value: number) =>
-    dispatch(saveCount.request({ value })),
+    dispatch(saveCount({ value })),
   reset: () =>
     dispatch(resetCounter()),
 })

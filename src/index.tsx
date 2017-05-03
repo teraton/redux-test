@@ -15,10 +15,11 @@ import * as Actions from './actions'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import { Provider } from 'react-redux'
 import { createLogger } from 'redux-logger'
+import ReduxThunk from 'redux-thunk'
 
 
 //test api middleware
-import { apiMiddleware } from './middleware'
+//import { apiMiddleware } from './middleware'
 
 //project components
 import {Counter} from './components/counter'
@@ -29,11 +30,12 @@ import {
 
 //create a logger for the redux store and create the store. Inject middleware and autorehydration
 const logger = createLogger({});
+const thunk = ReduxThunk;
 let store: Redux.Store<any> = Redux.createStore (
   reducers,
   undefined,
   Redux.compose(
-    Redux.applyMiddleware(logger,apiMiddleware),
+    Redux.applyMiddleware(thunk,logger),
     autoRehydrate()
   )
   );
