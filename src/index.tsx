@@ -16,6 +16,10 @@ import {persistStore, autoRehydrate} from 'redux-persist'
 import { Provider } from 'react-redux'
 import { createLogger } from 'redux-logger'
 
+
+//test api middleware
+import { apiMiddleware } from './middleware'
+
 //project components
 import {Counter} from './components/counter'
 import {
@@ -29,7 +33,7 @@ let store: Redux.Store<any> = Redux.createStore (
   reducers,
   undefined,
   Redux.compose(
-    Redux.applyMiddleware(logger),
+    Redux.applyMiddleware(logger,apiMiddleware),
     autoRehydrate()
   )
   );
