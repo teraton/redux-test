@@ -29,6 +29,8 @@
     "typings": "2.1.0"
   },
   "dependencies": {
-    "@types/es6-promise": "0.0.32"
+    "@types/es6-promise": "0.0.32",
+    "redux-saga": "^0.15.1",
+    "redux-thunk": "^2.2.0"
   }
 }
